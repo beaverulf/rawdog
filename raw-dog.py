@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#! /usr/bin/python
 import os
 import sys
 import argparse
@@ -24,20 +24,19 @@ def rawDog():
 
     #Find all raw files
     for file in files:
-        if file.endswith(rw2):
+        if file.upper().endswith(rw2):
             filename = os.path.splitext(file)[0]
             #If orphaned
             if filename + jpg not in files:
-                orphaned.append(filename+rw2)
+                orphaned.append(file)
 
     #Delete orphaned raws
-    if args.delete:
-        print("Deleting "+str(len(orphaned))+" orphaned raw file(s).")
-        for raw in orphaned:
-            os.remove(raw)
-    else:
-        print("Found "+str(len(orphaned))+" orphaned raw file(s).")
+    for raw in orphaned:
+        print("Deleting " + raw)
+        os.remove(raw)
 
+    print("Deleted "+str(len(orphaned))+" orphaned raw file(s).")
+        
 def sortFiles():
     photos = "photos"
     videos = "videos"
